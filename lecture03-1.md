@@ -1,7 +1,7 @@
 ## 第３回課題報告書
 
 #### サンプルアプリケーションのデプロイ
-![画像](/RaiseTech/image/sampleAP.png)
+![画像](image/sampleAP.png)
 
 
 #### APサーバーについて
