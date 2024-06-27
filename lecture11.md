@@ -1,4 +1,4 @@
-# 第11回追加課題
+# 第11回追加課題(再提出)
 
 ### 今回の課題についての説明
 
@@ -16,42 +16,40 @@
 
 #### カスタマイズしたテストコードでテスト
 
-![カスタマイズテスト](images/lecture11-2.png)
+![カスタマイズテスト](images/lecture11-3.png)
 
-テスト項目にRDSの接続確認を追加しました。理由は、RDSに接続できていない場合、アプリケーションが正常に動作しないため、RDS接続確認が必要と判断しました。
+前回は、テスト項目にRDSの接続確認を追加しました。しかし、DBパスワードが表示されセキュリティリスクがある上に、ステータスコードの確認テストと被っているとのご指摘を受けました。そこで今回は、ネットワークレベルの疎通確認を補助的に実行することにしました。
 
 
 ### おまけ：環境変数を設定するためのスクリプトを作成して自動化する
 
+```bash
+#!/bin/bash
+
+# スクリプトファイルを作成
+
+touch set_env.sh
+
+# 作成したファイルに実行権限を追加
+
+chmod +x set_env.sh
+
+# スクリプトファイルを編集
+
+vi set_env.sh
+
+# スクリプト内容を貼り付ける
+
+export RDS_ENDPOINT=raisetech05db.crxplw1wcrjd.us-east-1.rds.amazonaws.com
+
+# 別ターミナルでスクリプトを実行する　
+
+source ./set_env.sh
+
+# テストを実行　
+
+bundle exec rake spec
+```
 やってみたかったのでチャレンジしました。
-
-スクリプトファイルを作成
-
-`touch set_env.sh`
-
-作成したファイルに実行権限を追加
-
-`chmod +x set_env.sh`
-
-スクリプトファイルを編集、スクリプト内容を貼り付ける。
-
-`vi set_env.sh`
-
-export RDS_ENDPOINT=raisetech05db.crxplw1wcrjd.
-us-east-1.rds.amazonaws.com
-
-export RDS_USERNAME=oyatsu
-
-export RDS_PASSWORD=My-password
-
-別ターミナルでスクリプトを実行する　
-
-`source ./set_env.sh`
-
-テストを実行　
-
-`bundle exec rake spec`
-
-変わらず成功した！嬉しい！
 
 以上です。
