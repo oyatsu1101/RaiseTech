@@ -19,7 +19,7 @@ Resources:
     Properties:
       VpcId: !Ref lecture10vpc
       CidrBlock: 10.0.0.0/25
-      AvailabilityZone: us-east-1a
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
       Tags:
         - Key: Name
           Value: lecture10-public1-subnet-us-east-1a
@@ -29,7 +29,7 @@ Resources:
     Properties:
       VpcId: !Ref lecture10vpc
       CidrBlock: 10.0.0.128/25
-      AvailabilityZone: us-east-1b
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
       Tags:
         - Key: Name
           Value: lecture10-public2-subnet-us-east-1b
@@ -40,7 +40,7 @@ Resources:
     Properties: 
       VpcId: !Ref lecture10vpc
       CidrBlock: 10.0.4.0/25
-      AvailabilityZone: us-east-1a
+      AvailabilityZone: !Select [ 2, !GetAZs '' ]
       Tags:
         - Key: Name
           Value: lecture10-privat1-subnets-us-east-1a
@@ -50,7 +50,7 @@ Resources:
     Properties: 
       VpcId: !Ref lecture10vpc
       CidrBlock: 10.0.4.128/25
-      AvailabilityZone: us-east-1b
+      AvailabilityZone: !Select [ 3, !GetAZs '' ]
       Tags:
         - Key: Name
           Value: lecture10-privat2-subnets-us-east-1b
@@ -215,7 +215,7 @@ Resources:
   lecture10EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      AvailabilityZone: us-east-1b
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
       BlockDeviceMappings: 
       - DeviceName: /dev/xvda
         Ebs: 
@@ -265,7 +265,7 @@ Resources:
       Engine: mysql
       EngineVersion: 8.0.35
       MasterUsername: oyatsu
-      MasterUserPassword: lecture10rds
+      MasterUserPassword: !Sub "{{resolve:ssm-secure:/lecture10/dbpassword}}"
       StorageType: gp2
       Tags:
         - Key: Name
