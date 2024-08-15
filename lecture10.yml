@@ -265,7 +265,7 @@ Resources:
       Engine: mysql
       EngineVersion: 8.0.35
       MasterUsername: oyatsu
-      MasterUserPassword: !Sub "{{resolve:ssm-secure:/lecture10/dbpassword}}"
+      MasterUserPassword: "{{resolve:ssm-secure:/lecture10/dbpassword}}"
       StorageType: gp2
       Tags:
         - Key: Name
